@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ lyrics }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const lines = [
+
+                { text: "Tapi tapi susah sekali", delay: 100 },
+
+                { text: "Walau coba berkali kalii", delay: 100 },
+
+                { text: "begini salahh begitu juga salah", delay: 100 },
+
+                { text: "pusing pusing jadinyaa", delay: 100 },
+
+            ];
+ 
+            let currentLine = 0;
+            let currentChar = 0;
+
+           function typeCharacter() {
+
+                if (currentLine < lines.length) {
+
+                    const line = lines[currentLine];
+
+                    if (currentChar < line.text.length) {
+
+                        document.getElementById('lyrics').innerText += line.text[currentChar];
+
+                        currentChar++;
+
+                        setTimeout(typeCharacter, line.delay);
+
+                    } else {
+
+                        document.getElementById('lyrics').innerText += '\n';
+
+                        currentChar = 0;
+
+                        currentLine++;
+
+                        setTimeout(typeCharacter, 50);
+
+                    }
+
+                }
+
+            }
+
+
+
+            document.getElementById('startButton').addEventListener('click', function() {
+
+                // Sembunyikan tombol mulai
+
+                this.style.display = 'none';
+
+                // Tampilkan lirik
+
+                document.getElementById('lyrics').style.display = 'block';
+
+                // Bersihkan lirik sebelum mulai
+
+                document.getElementById('lyrics').innerText = '';
+
+                // Mulai mengetik lirik
+
+                typeCharacter();
+
+            });
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <div>
+
+        <h1>{{ title }}</h1>
+
+        <button id="startButton">Start</button>
+
+        <pre id="lyrics"></pre>
+
+    </div>
+
+</body>
+
+</html>
